@@ -26,7 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('gpu', function(){
-    
+    // Data
+    // return "hellow";
     return Gpu::all();
     // return "hello";
 });
@@ -78,4 +79,5 @@ Route::get('rank-gpu', function(){
 //         // return $response;
 //     });
 // });
+
 
