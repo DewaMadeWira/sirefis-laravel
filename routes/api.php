@@ -79,5 +79,3 @@ Route::get('rank-gpu', function(){
 //         // return $response;
 //     });
 // });
-
-
