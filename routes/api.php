@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use GuzzleHttp\Client;
-// use App\Http\Controllers\APIController;
+use App\Http\Controllers\APIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +53,9 @@ Route::get('rank-gpu', function(){
     return $response;
     // return "hello";
 });
+
+Route::post("create_data",[APIController::class, "store"]);
+
 // Route::get('rank-gpu', function(){
     
 //     // return Gpu::all();
