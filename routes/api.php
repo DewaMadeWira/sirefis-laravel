@@ -82,5 +82,3 @@ Route::post("create_data",[APIController::class, "store"]);
 //         // return $response;
 //     });
 // });
-
-
