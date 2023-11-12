@@ -69,10 +69,12 @@ class APIController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage. 🗿🗿
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $del = Gpu::all()->where('id', $request->id)->first();
+        $del->delete();
+        return "Berhasil menghapus data king";
     }
 }
