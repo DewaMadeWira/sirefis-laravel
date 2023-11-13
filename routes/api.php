@@ -4,6 +4,7 @@
 
 
 use App\Models\Gpu;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;

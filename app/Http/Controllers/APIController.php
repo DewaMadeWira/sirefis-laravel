@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Gpu;
-use APP\Models\company;
+use App\Models\Company;
 
 class APIController extends Controller
 {
@@ -42,19 +42,19 @@ class APIController extends Controller
         $save->category = $request->category;
         $save->save();
 
-        return "Berhasil Menyimpan Data";
+        return "Berhasil Menyimpan Data GPU";
     }
 
 
     public function store_company(Request $request)
     {
-        $save = new company;
+        $save = new Company;
         $save->company_name = $request->company_name;
         $save->ceo = $request->ceo;
         $save->location = $request->location;
         $save->save();
 
-        return "Berhasil Menyimpan Data";
+        return "Berhasil Menyimpan Data Company";
     }
 
 
