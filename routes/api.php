@@ -4,14 +4,16 @@
 
 
 use App\Models\Gpu;
+use GuzzleHttp\Client;
 use App\Models\Company;
 use App\Models\Company_employee;
 use App\Models\Gpu_recom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-use GuzzleHttp\Client;
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\Api\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +59,17 @@ Route::get('rank-gpu', function(){
     // return "hello";
 });
 
+<<<<<<< Updated upstream
 // Tambah Data
+=======
+// Login and Create
+
+Route::post("create_user",[UserController::class, "createUser"]);
+Route::post("login_user",[UserController::class, "loginUser"]);
+
+// GPU
+
+>>>>>>> Stashed changes
 Route::post("create_data",[APIController::class, "store"]);
 Route::post("create_data_company",[APIController::class, "store_company"]);
 
