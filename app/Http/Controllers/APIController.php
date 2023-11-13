@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Gpu;
 use App\Models\Company;
+use App\Models\Company_employee;
+use App\Models\Gpu_recom;
 
 class APIController extends Controller
 {
@@ -90,5 +92,26 @@ class APIController extends Controller
         $del = Gpu::all()->where('id', $request->id)->first();
         $del->delete();
         return "Berhasil menghapus data king";
+    }
+
+    public function destroy_gpu_recom(Request $request)
+    {
+        $del = Gpu_recom::all()->where('recommendation_id', $request->id)->first();
+        $del->delete();
+        return "Berhasil menghapus data rekomendasi gpu king";
+    }
+
+    public function destroy_company(Request $request)
+    {
+        $del = Company::all()->where('company_id', $request->id)->first();
+        $del->delete();
+        return "Berhasil menghapus data perusahaan king";
+    }
+
+    public function destroy_company_employee(Request $request)
+    {
+        $del = Company_employee::all()->where('company_employee_id', $request->id)->first();
+        $del->delete();
+        return "Berhasil menghapus data karyawan king";
     }
 }

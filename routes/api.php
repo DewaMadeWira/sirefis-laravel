@@ -5,6 +5,8 @@
 
 use App\Models\Gpu;
 use App\Models\Company;
+use App\Models\Company_employee;
+use App\Models\Gpu_recom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -55,9 +57,16 @@ Route::get('rank-gpu', function(){
     // return "hello";
 });
 
+// Tambah Data
 Route::post("create_data",[APIController::class, "store"]);
 Route::post("create_data_company",[APIController::class, "store_company"]);
+
+// Hapus Data
 Route::post("delete_data", [APIController::class, "destroy"]);
+Route::post("delete_data_gpu_recom", [APIController::class, "destroy_gpu_recom"]);
+Route::post("delete_data_company", [APIController::class, "destroy_company"]);
+Route::post("delete_data_company_employee", [APIController::class, "destroy_company_employee"]);
+
 
 // Route::get('rank-gpu', function(){
     
