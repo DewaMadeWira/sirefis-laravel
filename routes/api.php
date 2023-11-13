@@ -55,6 +55,7 @@ Route::get('rank-gpu', function(){
 });
 
 Route::post("create_data",[APIController::class, "store"]);
+Route::post("create_data_company",[APIController::class, "store_company"]);
 Route::post("delete_data", [APIController::class, "destroy"]);
 
 // Route::get('rank-gpu', function(){
