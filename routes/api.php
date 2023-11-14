@@ -58,10 +58,6 @@ Route::post('gpu', function(Request $request){
 //     // return "hello";
 // });
 
-<<<<<<< Updated upstream
-=======
-// Tambah Data
->>>>>>> Stashed changes
 // Login and Create
 
 Route::post("create_user",[UserController::class, "createUser"]);
@@ -71,6 +67,7 @@ Route::post("login_user",[UserController::class, "loginUser"]);
 
 Route::post("create_data",[APIController::class, "store"]);
 Route::post("create_data_company",[APIController::class, "store_company"]);
+Route::post("create_data_Gpu_recom",[APIController::class, "store_Gpu_recom"]);
 
 // Hapus Data
 Route::post("delete_data", [APIController::class, "destroy"]);
