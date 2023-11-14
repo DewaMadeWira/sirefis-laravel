@@ -89,9 +89,9 @@ class APIController extends Controller
      */
     public function destroy(Request $request)
     {
-        $del = Gpu::all()->where('id', $request->id)->first();
+        $del = Gpu::all()->where('gpu_id', $request->id)->first();
         $del->delete();
-        return "Berhasil menghapus data king";
+        return "Berhasil menghapus data gpu king";
     }
 
     public function destroy_gpu_recom(Request $request)

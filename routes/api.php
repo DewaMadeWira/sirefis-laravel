@@ -59,9 +59,6 @@ Route::get('rank-gpu', function(){
     // return "hello";
 });
 
-<<<<<<< Updated upstream
-// Tambah Data
-=======
 // Login and Create
 
 Route::post("create_user",[UserController::class, "createUser"]);
@@ -69,7 +66,6 @@ Route::post("login_user",[UserController::class, "loginUser"]);
 
 // GPU
 
->>>>>>> Stashed changes
 Route::post("create_data",[APIController::class, "store"]);
 Route::post("create_data_company",[APIController::class, "store_company"]);
 
