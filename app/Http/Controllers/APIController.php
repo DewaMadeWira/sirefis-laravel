@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Gpu;
+use App\Models\Company;
+use App\Models\Company_employee;
+use App\Models\Gpu_recom;
 
 class APIController extends Controller
 {
@@ -41,8 +44,32 @@ class APIController extends Controller
         $save->category = $request->category;
         $save->save();
 
-        return "Berhasil Menyimpan Data";
+        return "Berhasil Menyimpan Data GPU";
     }
+
+
+    public function store_company(Request $request)
+    {
+        $save = new Company;
+        $save->company_name = $request->company_name;
+        $save->ceo = $request->ceo;
+        $save->location = $request->location;
+        $save->save();
+
+        return "Berhasil Menyimpan Data Company";
+    }
+
+    public function store_Gpu_recom(Request $request)
+    {
+        $save = new Gpu_recom;
+        $save->best_gpu = $request->best_gpu;
+        $save->similar_1 = $request->similar_1;
+        // $save->recommendation_date = $request->recommendation_date;
+        $save->save();
+
+        return "Berhasil Menyimpan Data GPU";
+    }
+
 
     /**
      * Display the specified resource.
@@ -73,8 +100,29 @@ class APIController extends Controller
      */
     public function destroy(Request $request)
     {
-        $del = Gpu::all()->where('id', $request->id)->first();
+        $del = Gpu::all()->where('gpu_id', $request->id)->first();
         $del->delete();
-        return "Berhasil menghapus data king";
+        return "Berhasil menghapus data gpu king";
+    }
+
+    public function destroy_gpu_recom(Request $request)
+    {
+        $del = Gpu_recom::all()->where('recommendation_id', $request->id)->first();
+        $del->delete();
+        return "Berhasil menghapus data rekomendasi gpu king";
+    }
+
+    public function destroy_company(Request $request)
+    {
+        $del = Company::all()->where('company_id', $request->id)->first();
+        $del->delete();
+        return "Berhasil menghapus data perusahaan king";
+    }
+
+    public function destroy_company_employee(Request $request)
+    {
+        $del = Company_employee::all()->where('company_employee_id', $request->id)->first();
+        $del->delete();
+        return "Berhasil menghapus data karyawan king";
     }
 }

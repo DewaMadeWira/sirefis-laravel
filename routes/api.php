@@ -4,11 +4,16 @@
 
 
 use App\Models\Gpu;
+use GuzzleHttp\Client;
+use App\Models\Company;
+use App\Models\Company_employee;
+use App\Models\Gpu_recom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-use GuzzleHttp\Client;
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\Api\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +32,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('gpu', function(){
     // Data
-    // return "hellow";
     return Gpu::all();
     // return "hello";
 });
@@ -47,15 +51,30 @@ Route::post('gpu', function(Request $request){
     // return "hello";
 });
 
-Route::get('rank-gpu', function(){
-    $response = Http::get('http://127.0.0.1:5000/');
-    // return "requested";
-    return $response;
-    // return "hello";
-});
+// Route::get('rank-gpu', function(){
+//     $response = Http::get('http://127.0.0.1:5000/');
+//     // return "requested";
+//     return $response;
+//     // return "hello";
+// });
+
+// Login and Create
+
+Route::post("create_user",[UserController::class, "createUser"]);
+Route::post("login_user",[UserController::class, "loginUser"]);
+
+// GPU
 
 Route::post("create_data",[APIController::class, "store"]);
+Route::post("create_data_company",[APIController::class, "store_company"]);
+Route::post("create_data_Gpu_recom",[APIController::class, "store_Gpu_recom"]);
+
+// Hapus Data
 Route::post("delete_data", [APIController::class, "destroy"]);
+Route::post("delete_data_gpu_recom", [APIController::class, "destroy_gpu_recom"]);
+Route::post("delete_data_company", [APIController::class, "destroy_company"]);
+Route::post("delete_data_company_employee", [APIController::class, "destroy_company_employee"]);
+
 
 // Route::get('rank-gpu', function(){
     
@@ -83,3 +102,5 @@ Route::post("delete_data", [APIController::class, "destroy"]);
 //         // return $response;
 //     });
 // });
+
+//
