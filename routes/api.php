@@ -32,7 +32,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('gpu', function(){
     // Data
-    // return "hellow";
     return Gpu::all();
     // return "hello";
 });
@@ -52,13 +51,17 @@ Route::post('gpu', function(Request $request){
     // return "hello";
 });
 
-Route::get('rank-gpu', function(){
-    $response = Http::get('http://127.0.0.1:5000/');
-    // return "requested";
-    return $response;
-    // return "hello";
-});
+// Route::get('rank-gpu', function(){
+//     $response = Http::get('http://127.0.0.1:5000/');
+//     // return "requested";
+//     return $response;
+//     // return "hello";
+// });
 
+<<<<<<< Updated upstream
+=======
+// Tambah Data
+>>>>>>> Stashed changes
 // Login and Create
 
 Route::post("create_user",[UserController::class, "createUser"]);
