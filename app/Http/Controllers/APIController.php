@@ -64,9 +64,8 @@ class APIController extends Controller
         $save = new Gpu_recom;
         $save->best_gpu = $request->best_gpu;
         $save->similar_1 = $request->similar_1;
-
         $save->recommendation_date = $request->recommendation_date;
-        // $save->recommendation_date = $request->recommendation_date;
+        
 
         $save->save();
 
