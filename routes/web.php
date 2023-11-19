@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('gpu', function(){
-    // Data
-    return "hellow";
-    // return Gpu::all();
-    // return "hello";
-});
+// Route::get('gpu', function(){
+//     // Data
+//     return "hellow";
+//     // return Gpu::all();
+//     // return "hello";
+// });
