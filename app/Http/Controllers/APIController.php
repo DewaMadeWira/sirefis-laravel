@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Gpu;
+use App\Models\Admin;
 use App\Models\Company;
-use App\Models\Company_employee;
 use App\Models\Gpu_recom;
+use Illuminate\Http\Request;
+use App\Models\Company_employee;
+use App\Http\Controllers\Controller;
 
 class APIController extends Controller
 {
@@ -46,6 +47,14 @@ class APIController extends Controller
 
         return "Berhasil Menyimpan Data GPU";
     }
+
+     public function indexCompany()
+    {
+        //
+         $data = Company::all();
+         return $data;
+    }
+
 
 
     public function store_company(Request $request)
@@ -100,7 +109,7 @@ class APIController extends Controller
      */
     public function destroy(Request $request)
     {
-        $del = Gpu::all()->where('gpu_id', $request->id)->first();
+        $del = Gpu::all()->where('gpu_id', $request->gpu_id)->first();
         $del->delete();
         return "Berhasil menghapus data gpu king";
     }
@@ -124,5 +133,32 @@ class APIController extends Controller
         $del = Company_employee::all()->where('company_employee_id', $request->id)->first();
         $del->delete();
         return "Berhasil menghapus data karyawan king";
+    }
+
+       public function indexCompanyEmployee()
+    {
+        //
+         $data = Company_employee::all();
+         return $data;
+    }
+
+    // Admin
+
+    public function indexAdmin()
+    {
+        //
+         $data = Admin::all();
+         return $data;
+    }
+
+        public function store_admin(Request $request)
+    {
+        $save = new Admin;
+        $save->admin_name = $request->admin_name;
+        $save->admin_email = $request->admin_email;
+        $save->password = $request->password;
+        $save->save();
+
+        return "Berhasil Menyimpan Data Admin";
     }
 }
