@@ -74,6 +74,8 @@ class APIController extends Controller
         $save->best_gpu = $request->best_gpu;
         $save->similar_1 = $request->similar_1;
         // $save->recommendation_date = $request->recommendation_date;
+        
+
         $save->save();
 
         return "Berhasil Menyimpan Data GPU";
@@ -109,7 +111,10 @@ class APIController extends Controller
      */
     public function destroy(Request $request)
     {
+
         $del = Gpu::all()->where('gpu_id', $request->gpu_id)->first();
+
+
         $del->delete();
         return "Berhasil menghapus data gpu king";
     }
