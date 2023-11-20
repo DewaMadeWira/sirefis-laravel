@@ -135,7 +135,7 @@ class APIController extends Controller
 
     public function destroy_company(Request $request)
     {
-        $del = Company::all()->where('company_id', $request->id)->first();
+        $del = Company::all()->where('company_id', $request->company_id)->first();
         $del->delete();
         return "Berhasil menghapus data perusahaan king";
     }
