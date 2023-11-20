@@ -93,6 +93,7 @@ Route::post("delete_admin",[APIController::class, "destroy_admin"]);
 // Company
 
 Route::get("company", [APIController::class, "indexCompany"]);
+Route::post("company", [APIController::class, "get_company"]);
 // Employee
 
 Route::get("company-employee", [APIController::class, "indexCompanyEmployee"]);
