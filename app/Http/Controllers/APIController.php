@@ -154,6 +154,18 @@ class APIController extends Controller
          return $data;
     }
 
+    public function store_company_employee(Request $request)
+    {
+        $save = new Company_employee;
+        $save->employee_name = $request->employee_name;
+        $save->employee_email = $request->employee_email;
+        $save->password = $request->password;
+        $save->company_id = $request->company_id;
+        $save->save();
+
+        return "Berhasil Menyimpan Data Company Employee";
+    }
+
     // Admin
 
     public function indexAdmin()
@@ -172,6 +184,12 @@ class APIController extends Controller
         $save->save();
 
         return "Berhasil Menyimpan Data Admin";
+    }
+
+      public function get_admin(Request $request)
+    {
+        $data = Admin::all()->where('admin_id', $request->admin_id)->first();
+        return $data;
     }
 
     public function destroy_admin(Request $request)
