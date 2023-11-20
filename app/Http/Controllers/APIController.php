@@ -109,6 +109,13 @@ class APIController extends Controller
     /**
      * Remove the specified resource from storage. 🗿🗿
      */
+
+      public function get_gpu(Request $request)
+    {
+        $data = Gpu::all()->where('gpu_id', $request->gpu_id)->first();
+        return $data;
+    }
+
     public function destroy(Request $request)
     {
 
@@ -165,5 +172,15 @@ class APIController extends Controller
         $save->save();
 
         return "Berhasil Menyimpan Data Admin";
+    }
+
+    public function destroy_admin(Request $request)
+    {
+
+        $del = Admin::all()->where('admin_id', $request->admin_id)->first();
+
+
+        $del->delete();
+        return "Berhasil menghapus data admin king";
     }
 }

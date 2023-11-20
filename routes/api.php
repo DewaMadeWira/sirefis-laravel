@@ -35,6 +35,11 @@ Route::get('gpu', function(){
     return Gpu::all();
     // return "hello";
 });
+Route::get('gpu', function(){
+    // Data
+    return Gpu::all();
+    // return "hello";
+});
 Route::get('gpu-rank', function(){
     $data = Gpu::all();
     $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
@@ -67,6 +72,7 @@ Route::post("login_user",[UserController::class, "loginUser"]);
 
 // GPU
 Route::post("create_data",[APIController::class, "store"]);
+Route::post("get-gpu",[APIController::class, "get_gpu"]);
 Route::post("create_data_company",[APIController::class, "store_company"]);
 Route::post("create_data_Gpu_recom",[APIController::class, "store_Gpu_recom"]);
 
@@ -80,6 +86,7 @@ Route::post("delete_data_company_employee", [APIController::class, "destroy_comp
 // Admin
 Route::get("admin", [APIController::class, "indexAdmin"]);
 Route::post("create_admin",[APIController::class, "store_admin"]);
+Route::post("delete_admin",[APIController::class, "destroy_admin"]);
 
 // Company
 
