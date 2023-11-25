@@ -40,12 +40,60 @@ Route::get('gpu', function(){
     return Gpu::all();
     // return "hello";
 });
-Route::get('gpu-rank', function(){
-    $data = Gpu::all();
-    $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
-    return $response;
-    // return Gpu::all();
-    // return "hello";
+// Route::get('gpu-rank', function(){
+//     $data = Gpu::all();
+//     $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+//     return $response;
+//     // return Gpu::all();
+//     // return "hello";
+// });
+Route::get('gpu-rank', function(Request $request){
+    $company;
+    $priceMin=0;
+    $priceMax=219999;
+
+    
+    $priceMax=$request->priceMax;
+    
+    if($request->priceMax=="0"){
+        $priceMax=219999;
+    }
+
+    $priceMin=$request->priceMin;
+
+
+    if($request->amd=="true"){
+        $company=1;
+    }
+    else{
+        $company=2;
+    }
+
+   
+
+
+
+    
+    
+    if($request->desktop == "true" && $request->workstation == "false"){
+            $data = Gpu::all()->where('category', '=', 'Desktop')->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
+            return $data;
+
+    }
+    else if($request->desktop == "false" && $request->workstation == "true"){
+            $data = Gpu::all()->where('category', '=', 'Workstation')->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
+            return $data;
+    }
+    else{
+           $data = Gpu::all()->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
+           return $data;
+    }
+
+
+
+    // return $data;
+    // $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+    // return $response;
 });
 Route::post('gpu', function(Request $request){
     $jsonData = $request->json()->all();
