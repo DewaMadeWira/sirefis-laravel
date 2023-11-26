@@ -4,11 +4,12 @@
 
 
 use App\Models\Gpu;
+use App\Models\Admin;
 use GuzzleHttp\Client;
 use App\Models\Company;
-use App\Models\Company_employee;
 use App\Models\Gpu_recom;
 use Illuminate\Http\Request;
+use App\Models\Company_employee;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIController;
@@ -47,12 +48,24 @@ Route::get('gpu', function(){
 //     // return Gpu::all();
 //     // return "hello";
 // });
+Route::post('login-admin', function(Request $request){
+   $email = $request->email;
+   $password = $request->password;
+   $data = Admin::where('admin_email','=',$email)->
+   where('password','=',$password)->first();
+
+//    $cookie = cookie('nim', $data->admin_name, $minutes = 60);
+   return response()
+       ->json(['success' => "logged in"], 200)   // JsonResponse object
+       ->withCookie(cookie('name', $data->admin_name, $minutes = 60));
+
+
+});
 Route::get('gpu-rank', function(Request $request){
     $company;
     $priceMin=0;
     $priceMax=219999;
 
-    
     $priceMax=$request->priceMax;
     
     if($request->priceMax=="0"){
@@ -69,24 +82,35 @@ Route::get('gpu-rank', function(Request $request){
         $company=2;
     }
 
-   
-
-
-
-    
+    // return $company;
     
     if($request->desktop == "true" && $request->workstation == "false"){
-            $data = Gpu::all()->where('category', '=', 'Desktop')->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
-            return $data;
+        // $data = Gpu::all();
+        $data = Gpu::select('gpu_id', 'gpu_name', 'G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company')->where('category', '=', 'Desktop')
+            ->whereBetween('price', [$priceMin, $priceMax])
+            ->where('company', '=', $company)
+            ->get()
+            ->toArray();
+            // $data = Gpu::all()->where('category', '=', 'Desktop')->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax)->toArray();
+            // $send_data = [$data.value];
+            // $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$send_data]);
+            // return $response;
+        // return $data;
+        // $send_data = ;
+        return $data;
 
     }
     else if($request->desktop == "false" && $request->workstation == "true"){
             $data = Gpu::all()->where('category', '=', 'Workstation')->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
-            return $data;
+            $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+            return $response;
+            // return $data;
     }
     else{
            $data = Gpu::all()->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
-           return $data;
+           $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+            return $response;
+        //    return $data;
     }
 
 
