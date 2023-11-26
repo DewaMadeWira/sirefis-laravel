@@ -176,6 +176,12 @@ class APIController extends Controller
 
     // Admin
 
+    public function search_gpu(Request $request)
+    {
+        $data = Gpu::where('gpu_name', 'like', '%' . $request->gpu_name . '%')->get();
+        return $data;
+    }
+
     public function indexAdmin()
     {
         //
