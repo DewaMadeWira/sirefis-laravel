@@ -41,9 +41,9 @@ Route::get('gpu', function(){
     return Gpu::all();
     // return "hello";
 });
-Route::get('gpu-rank', function(){
-    $data = Gpu::all();
-    $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+// Route::get('gpu-rank', function(){
+//     $data = Gpu::all();
+//     $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
 //     return $response;
 //     // return Gpu::all();
 //     // return "hello";
@@ -61,7 +61,7 @@ Route::post('login-admin', function(Request $request){
 
 
 });
-Route::get('gpu-rank', function(Request $request){
+Route::post('gpu-rank', function(Request $request){
     $company;
     $priceMin=0;
     $priceMax=219999;
@@ -85,32 +85,43 @@ Route::get('gpu-rank', function(Request $request){
     // return $company;
     
     if($request->desktop == "true" && $request->workstation == "false"){
-        // $data = Gpu::all();
         $data = Gpu::select('gpu_id', 'gpu_name', 'G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company')->where('category', '=', 'Desktop')
             ->whereBetween('price', [$priceMin, $priceMax])
             ->where('company', '=', $company)
             ->get()
             ->toArray();
-            // $data = Gpu::all()->where('category', '=', 'Desktop')->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax)->toArray();
-            // $send_data = [$data.value];
-            // $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$send_data]);
-            // return $response;
-        // return $data;
-        // $send_data = ;
-        return $data;
+        $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+        return $response;
+
 
     }
     else if($request->desktop == "false" && $request->workstation == "true"){
-            $data = Gpu::all()->where('category', '=', 'Workstation')->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
-            $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
-            return $response;
-            // return $data;
+            // $data = Gpu::all()->where('category', '=', 'Workstation')->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
+            // $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+            // return $response;
+
+            $data = Gpu::select('gpu_id', 'gpu_name', 'G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company')->where('category', '=', 'Workstation')
+            ->whereBetween('price', [$priceMin, $priceMax])
+            ->where('company', '=', $company)
+            ->get()
+            ->toArray();
+        $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+        return $response;
+   
     }
     else{
-           $data = Gpu::all()->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
-           $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
-            return $response;
-        //    return $data;
+        //    $data = Gpu::all()->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
+        //    $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+        //     return $response;
+
+            $data = Gpu::select('gpu_id', 'gpu_name', 'G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company')
+            ->whereBetween('price', [$priceMin, $priceMax])
+            ->where('company', '=', $company)
+            ->get()
+            ->toArray();
+        $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+        return $response;
+        
     }
 
 
@@ -201,3 +212,4 @@ Route::get("company-employee", [APIController::class, "indexCompanyEmployee"]);
 // });
 
 //
+
