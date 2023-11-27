@@ -182,6 +182,13 @@ Route::post("company", [APIController::class, "get_company"]);
 
 Route::get("company-employee", [APIController::class, "indexCompanyEmployee"]);
 
+// Update
+Route::post("update_data", [APIController::class, "update"]);
+Route::post("update_data_gpu_recom", [APIController::class, "update_gpu_recom"]);
+Route::post("update_data_company", [APIController::class, "update_company"]);
+Route::post("update_data_company_employee", [APIController::class, "update_company_employee"]);
+ 
+
 
 
 // Route::get('rank-gpu', function(){
