@@ -90,6 +90,7 @@ Route::post('gpu-rank', function(Request $request){
             ->where('company', '=', $company)
             ->get()
             ->toArray();
+            // return
         $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
         return $response;
 
@@ -119,6 +120,8 @@ Route::post('gpu-rank', function(Request $request){
             ->where('company', '=', $company)
             ->get()
             ->toArray();
+
+            // return $data;
         $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
         return $response;
         
