@@ -136,6 +136,7 @@ class APIController extends Controller
     public function destroy_company(Request $request)
     {
         $data = Company::all()->where('company_id', $request->company_id)->first();
+        $data->delete();
         return $data;
         // return "Berhasil menghapus data perusahaan king";
     }
@@ -210,7 +211,6 @@ class APIController extends Controller
     {
 
         $del = Admin::all()->where('admin_id', $request->admin_id)->first();
-
 
         $del->delete();
         return "Berhasil menghapus data admin king";
