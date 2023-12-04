@@ -163,6 +163,7 @@ Route::get("search_gpu/{gpu_name}", [APIController::class, "search_gpu"]);
 Route::post("create_data_company",[APIController::class, "store_company"]);
 Route::post("create_data_company_employee",[APIController::class, "store_company_employee"]);
 Route::post("create_data_Gpu_recom",[APIController::class, "store_Gpu_recom"]);
+Route::get("get_Gpu_recom", [APIController::class, "get_Gpu_recom"]);
 
 // Hapus Data
 Route::post("delete_data", [APIController::class, "destroy"]);
