@@ -106,9 +106,15 @@ class APIController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update_company(Request $request, string $id)
     {
-        //
+        $data = Company::all()->where('company_id', $request->id)->first();
+            $data->company_name = $request->company_name;
+            $data->ceo = $request->ceo;
+            $data->location = $request->location;
+            $data->save();
+    
+            return "Berhasil mengubah Data gpu";
     }
 
     /**
