@@ -140,12 +140,12 @@ class APIController extends Controller
     public function update_company(Request $request)
     {
         $data = Company::all()->where('company_id', $request->id)->first();
-            $data->company_name = $request->company_name;
-            $data->ceo = $request->ceo;
-            $data->location = $request->location;
-            $data->save();
+        $data->company_name = $request->company_name;
+        $data->ceo = $request->ceo;
+        $data->location = $request->location;
+        $data->save();
     
-            return "Berhasil mengubah Data gpu";
+        return "Berhasil mengubah Data gpu";
     }
     public function update_company_employee(Request $request)
     
@@ -155,7 +155,7 @@ class APIController extends Controller
         $data->company_id = $request->company_id;
         $data->save();
         
-            return "Berhasil mengubah Data gpu";
+        return "Berhasil mengubah Data gpu";
 
     /**
      * Remove the specified resource from storage. 🗿🗿
