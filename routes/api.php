@@ -90,6 +90,7 @@ Route::post('gpu-rank', function(Request $request){
             ->where('company', '=', $company)
             ->get()
             ->toArray();
+            // return
         $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
         return $response;
 
@@ -119,6 +120,8 @@ Route::post('gpu-rank', function(Request $request){
             ->where('company', '=', $company)
             ->get()
             ->toArray();
+
+            // return $data;
         $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
         return $response;
         
@@ -160,6 +163,7 @@ Route::get("search_gpu/{gpu_name}", [APIController::class, "search_gpu"]);
 Route::post("create_data_company",[APIController::class, "store_company"]);
 Route::post("create_data_company_employee",[APIController::class, "store_company_employee"]);
 Route::post("create_data_Gpu_recom",[APIController::class, "store_Gpu_recom"]);
+Route::get("get_Gpu_recom", [APIController::class, "get_Gpu_recom"]);
 
 // Hapus Data
 Route::post("delete_data", [APIController::class, "destroy"]);
@@ -181,6 +185,13 @@ Route::post("company", [APIController::class, "get_company"]);
 // Employee
 
 Route::get("company-employee", [APIController::class, "indexCompanyEmployee"]);
+
+// Update
+Route::post("update_data", [APIController::class, "update"]);
+Route::post("update_data_gpu_recom", [APIController::class, "update_gpu_recom"]);
+Route::post("update_data_company", [APIController::class, "update_company"]);
+Route::post("update_data_company_employee", [APIController::class, "update_company_employee"]);
+ 
 
 
 

@@ -11,5 +11,5 @@ class Gpu extends Model
     protected $table = 'gpu_data';
     public $timestamps = false;
     protected $primaryKey = 'gpu_id';
-    protected $fillable = ['gpu_name','G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category'];
+    protected $fillable = ['gpu_name','G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company'];
 }

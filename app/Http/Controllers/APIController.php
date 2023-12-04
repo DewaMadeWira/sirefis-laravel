@@ -43,6 +43,7 @@ class APIController extends Controller
         $save->power_performance = $request->power_performance;
         $save->test_date = $request->test_date;
         $save->category = $request->category;
+        $save->company = $request->company;
         $save->save();
 
         return "Berhasil Menyimpan Data GPU";
@@ -73,14 +74,18 @@ class APIController extends Controller
         $save = new Gpu_recom;
         $save->best_gpu = $request->best_gpu;
         $save->similar_1 = $request->similar_1;
-        // $save->recommendation_date = $request->recommendation_date;
+        $save->recommendation_date = $request->recommendation_date;
         
 
         $save->save();
 
         return "Berhasil Menyimpan Data GPU";
     }
-
+    public function get_Gpu_recom(Request $request)
+    {
+    $data = Gpu_recom::all();
+         return $data;
+    }
 
     /**
      * Display the specified resource.
@@ -101,12 +106,59 @@ class APIController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+     public function update(Request $request)
     {
-        //
+        $data = Gpu::all()->where('gpu_id', $request->id)->first();
+        $data->gpu_name = $request->gpu_name;
+        $data->G3Dmark = $request->G3Dmark;
+        $data->G2Dmark = $request->G2Dmark;
+        $data->price = $request->price;
+        $data->gpu_value = $request->gpu_value;
+        $data->TDP = $request->TDP;
+        $data->power_performance = $request->power_performance;
+        $data->test_date = $request->test_date;
+        $data->category = $request->category;
+        $data->company = $request->company;
+        $data->save();
+
+        return "Berhasil mengubah Data gpu";
     }
 
-    /**
+    public function update_gpu_recom(Request $request)
+    
+    {
+        $data = gpu_recom::all()->where('recommendation_id', $request->id)->first();
+        $data->best_gpu = $request->best_gpu;
+        $data->similar_1 = $request->similar_1;
+        $data->recommendation_date = $request->recommendation_date;
+        $data->save();
+        
+        return "Berhasil mengubah Data gpu";
+    }
+
+    public function update_company(Request $request)
+    {
+        $data = Company::all()->where('company_id', $request->id)->first();
+        $data->company_name = $request->company_name;
+        $data->ceo = $request->ceo;
+        $data->location = $request->location;
+        $data->save();
+    
+        return "Berhasil mengubah Data gpu";
+    }
+    public function update_company_employee(Request $request)
+    
+    {
+        $data = Company_employee::all()->where('company_employee_id', $request->id)->first();
+        $data->employee_id = $request->employee_id;
+        $data->company_id = $request->company_id;
+        $data->save();
+        
+        return "Berhasil mengubah Data gpu";
+
+    
+        }    /**
      * Remove the specified resource from storage. 🗿🗿
      */
 
@@ -128,17 +180,16 @@ class APIController extends Controller
 
     public function destroy_gpu_recom(Request $request)
     {
-        $del = Gpu_recom::all()->where('recommendation_id', $request->id)->first();
+        $del = Gpu_recom::all()->where('recommendation_id', $request->recommendation_id)->first();
         $del->delete();
         return "Berhasil menghapus data rekomendasi gpu king";
     }
 
     public function destroy_company(Request $request)
     {
-        $data = Company::all()->where('company_id', $request->company_id)->first();
-        $data->delete();
-        return $data;
-        // return "Berhasil menghapus data perusahaan king";
+        $del = Company::all()->where('company_id', $request->company_id)->first();
+        $del->delete();
+        return "Berhasil menghapus data perusahaan king";
     }
 
       public function get_company(Request $request)
