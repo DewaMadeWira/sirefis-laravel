@@ -106,7 +106,7 @@ class APIController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update_company(Request $request, string $id)
+    public function update_company(Request $request)
     {
         $data = Company::all()->where('company_id', $request->id)->first();
             $data->company_name = $request->company_name;
