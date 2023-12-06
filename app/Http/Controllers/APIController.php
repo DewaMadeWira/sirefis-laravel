@@ -6,6 +6,7 @@ use App\Models\Gpu;
 use App\Models\Admin;
 use App\Models\Company;
 use App\Models\Gpu_recom;
+use App\Models\RequestGpu;
 use Illuminate\Http\Request;
 use App\Models\Company_employee;
 use App\Http\Controllers\Controller;
@@ -123,6 +124,17 @@ class APIController extends Controller
         $data->save();
 
         return "Berhasil mengubah Data gpu";
+    }
+     public function update_admin(Request $request)
+    {
+        $data = Admin::all()->where('admin_id', $request->admin_id)->first();;
+        $data->admin_name = $request->admin_name;
+        $data->admin_email = $request->admin_email;
+        $data->password = $request->password;
+        $data->save();
+
+
+        return "Berhasil mengubah Data admin";
     }
 
     public function update_gpu_recom(Request $request)
@@ -265,5 +277,66 @@ class APIController extends Controller
 
         $del->delete();
         return "Berhasil menghapus data admin king";
+    }
+
+    // Request GPU
+
+     public function store_request(Request $request)
+    {
+        $save = new Gpu;
+        $save->gpu_name = $request->gpu_name;
+        $save->G3Dmark = $request->G3Dmark;
+        $save->G2Dmark = $request->G2Dmark;
+        $save->price = $request->price;
+        $save->gpu_value = $request->gpu_value;
+        $save->TDP = $request->TDP;
+        $save->power_performance = $request->power_performance;
+        $save->test_date = $request->test_date;
+        $save->category = $request->category;
+        $save->company = $request->company;
+        $save->status = "unvalidated";
+        $save->save();
+        // return $save->gpu_id;
+
+        $save_request = new RequestGpu;
+        $save_request->gpu_id = $save->gpu_id;
+        $save_request->company_id = $save->company;
+        $save_request->save();
+
+        // return "Berhasil Menyimpan Data GPU";
+
+        return "Berhasil Menyimpan Request GPU";
+    }
+
+    public function index_request()
+    {
+        //
+         $data = RequestGpu::all();
+         return $data;
+    }
+
+    //     public function store_request(Request $request)
+    // {
+    //     $save = new RequestGpu;
+    //     $save->gpu_id = $request->gpu_id;
+    //     $save->company_id = $request->company_id;
+    //     $save->save();
+
+    //     return "Berhasil Menyimpan Data GPU";
+    // }
+
+      public function get_request(Request $request)
+    {
+        $data = RequestGpu::all()->where('request_id', $request->request_id)->first();
+        return $data;
+    }
+
+    public function destroy_request(Request $request)
+    {
+
+        $del = RequestGpu::all()->where('request_id', $request->request_id)->first();
+
+        $del->delete();
+        return "Berhasil menghapus data request king";
     }
 }

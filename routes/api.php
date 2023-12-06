@@ -41,13 +41,6 @@ Route::get('gpu', function(){
     return Gpu::all();
     // return "hello";
 });
-// Route::get('gpu-rank', function(){
-//     $data = Gpu::all();
-//     $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
-//     return $response;
-//     // return Gpu::all();
-//     // return "hello";
-// });
 Route::post('login-admin', function(Request $request){
    $email = $request->email;
    $password = $request->password;
@@ -181,6 +174,7 @@ Route::get("admin", [APIController::class, "indexAdmin"]);
 Route::post("admin", [APIController::class, "get_admin"]);
 Route::post("create_admin",[APIController::class, "store_admin"]);
 Route::post("delete_admin",[APIController::class, "destroy_admin"]);
+Route::post("update_admin",[APIController::class, "update_admin"]);
 
 // Company
 
@@ -196,7 +190,13 @@ Route::post("update_data_gpu_recom", [APIController::class, "update_gpu_recom"])
 Route::post("update_data_company", [APIController::class, "update_company"]);
 Route::post("update_data_company_employee", [APIController::class, "update_company_employee"]);
  
+// GPU Request
 
+Route::get("gpu-request", [APIController::class, "index_request"]);
+Route::post("gpu-request", [APIController::class, "get_request"]);
+Route::post("create-request",[APIController::class, "store_request"]);
+Route::post("delete-request",[APIController::class, "destroy_request"]);
+Route::post("update-request",[APIController::class, "update_request"]);
 
 
 // Route::get('rank-gpu', function(){
