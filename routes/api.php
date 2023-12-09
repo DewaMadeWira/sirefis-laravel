@@ -33,14 +33,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('gpu', function(){
     // Data
-    return Gpu::all();
+    return Gpu::all()->where('status', '=', "validated");
     // return "hello";
 });
-Route::get('gpu', function(){
-    // Data
-    return Gpu::all();
-    // return "hello";
-});
+// Route::get('gpu', function(){
+//     // Data
+//     return Gpu::all();
+//     // return "hello";
+// });
 Route::post('login-admin', function(Request $request){
    $email = $request->email;
    $password = $request->password;
@@ -55,8 +55,6 @@ Route::post('login-admin', function(Request $request){
 
     return response('logged in', 200)
                   ->header('Authorization', $token);
-
-
 });
 Route::post('gpu-rank', function(Request $request){
     $company;
@@ -85,13 +83,14 @@ Route::post('gpu-rank', function(Request $request){
         $data = Gpu::select('gpu_id', 'gpu_name', 'G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company')->where('category', '=', 'Desktop')
             ->whereBetween('price', [$priceMin, $priceMax])
             ->where('company', '=', $company)
+            ->where('status', '=', "validated")
             ->get()
             ->toArray();
             // return
+
+        // return $data;
         $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
         return $response;
-
-
     }
     else if($request->desktop == "false" && $request->workstation == "true"){
             // $data = Gpu::all()->where('category', '=', 'Workstation')->where('price', '>', $priceMin)->where('company', '=', $company)->where('price', '<', $priceMax);
@@ -101,8 +100,10 @@ Route::post('gpu-rank', function(Request $request){
             $data = Gpu::select('gpu_id', 'gpu_name', 'G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company')->where('category', '=', 'Workstation')
             ->whereBetween('price', [$priceMin, $priceMax])
             ->where('company', '=', $company)
+            ->where('status', '=', "validated")
             ->get()
             ->toArray();
+        // return $data;
         $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
         return $response;
    
@@ -115,6 +116,7 @@ Route::post('gpu-rank', function(Request $request){
             $data = Gpu::select('gpu_id', 'gpu_name', 'G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company')
             ->whereBetween('price', [$priceMin, $priceMax])
             ->where('company', '=', $company)
+            ->where('status', '=', "validated")
             ->get()
             ->toArray();
 
