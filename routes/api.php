@@ -63,7 +63,7 @@ Route::post('gpu-rank', function(Request $request){
 
     $priceMax=$request->priceMax;
     
-    if($request->priceMax=="0"){
+    if($request->priceMax==""){
         $priceMax=219999;
     }
 
