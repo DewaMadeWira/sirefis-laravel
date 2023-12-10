@@ -10,6 +10,8 @@ use App\Models\RequestGpu;
 use Illuminate\Http\Request;
 use App\Models\Company_employee;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
 
 class APIController extends Controller
 {
@@ -312,7 +314,11 @@ class APIController extends Controller
     {
         //
          $data = RequestGpu::all();
-         return $data;
+         $users = DB::table('gpu_data')
+            ->join('request_gpu', 'gpu_data.gpu_id', '=', 'request_gpu.gpu_id')
+            ->select('gpu_data.*', 'request_gpu.request_id')
+            ->get();
+         return $users;
     }
 
     //     public function store_request(Request $request)
@@ -335,8 +341,26 @@ class APIController extends Controller
     {
 
         $del = RequestGpu::all()->where('request_id', $request->request_id)->first();
-
+        $gpuId= $del->gpu_id;
+        // return $gpuId;
         $del->delete();
+
+        $delGpu = Gpu::all()->where('gpu_id', $gpuId)->first();
+        $delGpu->delete();
         return "Berhasil menghapus data request king";
     }
+
+    public function approve_gpu(Request $request)
+    {
+        $data = RequestGpu::all()->where('request_id', $request->request_id)->first();
+        $gpuId= $data->gpu_id;
+        $gpuData = Gpu::all()->where('gpu_id', $gpuId)->first();
+        $gpuData->status = "validated";
+        $gpuData->save();
+        $data->delete();
+        
+        return "Berhasil mengubah Data Request";
+
+    
+        }
 }
