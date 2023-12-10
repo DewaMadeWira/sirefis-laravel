@@ -199,7 +199,7 @@ Route::post("gpu-request", [APIController::class, "get_request"]);
 Route::post("create-request",[APIController::class, "store_request"]);
 Route::post("delete-request",[APIController::class, "destroy_request"]);
 Route::post("update-request",[APIController::class, "update_request"]);
-Route::post("approve-gpu",[APIController::class, "approve_gpu"]);
+Route::post("approve-request",[APIController::class, "approve_request"]);
 
 
 // Route::get('rank-gpu', function(){

@@ -350,7 +350,7 @@ class APIController extends Controller
         return "Berhasil menghapus data request king";
     }
 
-    public function approve_gpu(Request $request)
+    public function approve_request(Request $request)
     {
         $data = RequestGpu::all()->where('request_id', $request->request_id)->first();
         $gpuId= $data->gpu_id;
