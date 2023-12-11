@@ -47,14 +47,21 @@ Route::post('login-admin', function(Request $request){
    $data = Admin::where('admin_email','=',$email)->
    where('password','=',$password)->first();
 
-   $token = uniqid();
+   if(empty($data)){
+    // return "wrong credential";
+     return response('', 401);
+    // return "invalid";
+   }
+   return response($data->admin_name,200);
+
+//    $token = uniqid();
 //    $cookie = cookie('nim', $data->admin_name, $minutes = 60);
 //    return response()
 //        ->json(['success' => "logged in"], 200)   // JsonResponse object
 //        ->withCookie(cookie('name', $data->admin_name, $minutes = 60));
-
-    return response('logged in', 200)
-                  ->header('Authorization', $token);
+    // return $token;
+    // return response('logged in', 200)
+    //               ->header('Authorization', $token);
 });
 Route::post('gpu-rank', function(Request $request){
     $company;
