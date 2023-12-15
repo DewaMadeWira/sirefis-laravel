@@ -84,6 +84,14 @@ Route::post('count-company', function(Request $request){
 });
 
 
+Route::post('company-gpu', function(Request $request){
+   $company_id = $request->company_id;
+//    return $company_id;
+   $data = Gpu::select("gpu_data.*")->where('company', $company_id)->get()->toArray();;
+   return $data;
+});
+
+
 
 
 
