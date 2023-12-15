@@ -63,6 +63,33 @@ Route::post('login-admin', function(Request $request){
     // return response('logged in', 200)
     //               ->header('Authorization', $token);
 });
+Route::post('login-company', function(Request $request){
+   $email = $request->email;
+   $password = $request->password;
+   $data = Company_employee::where('employee_email','=',$email)->
+   where('password','=',$password)->first();
+
+   if(empty($data)){
+    // return "wrong credential";
+     return response('', 401);
+    // return "invalid";
+   }
+   return response($data->company_id,200);
+
+//    $token = uniqid();
+//    $cookie = cookie('nim', $data->admin_name, $minutes = 60);
+//    return response()
+//        ->json(['success' => "logged in"], 200)   // JsonResponse object
+//        ->withCookie(cookie('name', $data->admin_name, $minutes = 60));
+    // return $token;
+    // return response('logged in', 200)
+    //               ->header('Authorization', $token);
+});
+
+
+
+
+
 Route::post('gpu-rank', function(Request $request){
     $company;
     $priceMin=0;
