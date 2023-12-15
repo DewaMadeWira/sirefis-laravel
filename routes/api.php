@@ -63,6 +63,7 @@ Route::post('login-admin', function(Request $request){
     // return response('logged in', 200)
     //               ->header('Authorization', $token);
 });
+
 Route::post('login-company', function(Request $request){
    $email = $request->email;
    $password = $request->password;
@@ -75,16 +76,14 @@ Route::post('login-company', function(Request $request){
     // return "invalid";
    }
    return response($data->company_id,200);
-
-//    $token = uniqid();
-//    $cookie = cookie('nim', $data->admin_name, $minutes = 60);
-//    return response()
-//        ->json(['success' => "logged in"], 200)   // JsonResponse object
-//        ->withCookie(cookie('name', $data->admin_name, $minutes = 60));
-    // return $token;
-    // return response('logged in', 200)
-    //               ->header('Authorization', $token);
 });
+Route::post('count-company', function(Request $request){
+   $company_id = $request->company_id;
+   $count = DB::table('gpu_data')->where('company','=',$company_id)->count();
+   return $count;
+});
+
+
 
 
 
