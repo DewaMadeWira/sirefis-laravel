@@ -153,13 +153,13 @@ class APIController extends Controller
 
     public function update_company(Request $request)
     {
-        $data = Company::all()->where('company_id', $request->id)->first();
+        $data = Company::all()->where('company_id', $request->company_id)->first();
         $data->company_name = $request->company_name;
         $data->ceo = $request->ceo;
         $data->location = $request->location;
         $data->save();
     
-        return "Berhasil mengubah Data gpu";
+        return "Berhasil mengubah Data Company";
     }
     public function update_company_employee(Request $request)
     
