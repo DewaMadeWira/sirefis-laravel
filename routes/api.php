@@ -77,6 +77,7 @@ Route::post('login-company', function(Request $request){
    }
    return response($data->company_id,200);
 });
+
 Route::post('count-company', function(Request $request){
    $company_id = $request->company_id;
    $count = DB::table('gpu_data')->where('company','=',$company_id)->count();
@@ -89,6 +90,22 @@ Route::post('company-gpu', function(Request $request){
 //    return $company_id;
    $data = Gpu::select("gpu_data.*")->where('company', $company_id)->get()->toArray();;
    return $data;
+});
+
+Route::post('get-recommendation', function(Request $request){
+   $company_id = $request->company_id;
+//    return $company_id;
+   $data = Gpu::select("gpu_data.*")->where('company', $company_id)->get()->toArray();;
+   return $data;
+});
+
+Route::post('get-recommendation', function(Request $request){
+    // $data = RequestGpu::all();
+    $users = DB::table('gpu_data')
+       ->join('request_gpu', 'gpu_data.gpu_id', '=', 'request_gpu.gpu_id')
+       ->select('gpu_data.*', 'request_gpu.request_id')
+       ->get();
+    return $users;
 });
 
 
@@ -173,6 +190,8 @@ Route::post('gpu-rank', function(Request $request){
     // $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
     // return $response;
 });
+
+
 Route::post('gpu', function(Request $request){
     $jsonData = $request->json()->all();
     return $jsonData;

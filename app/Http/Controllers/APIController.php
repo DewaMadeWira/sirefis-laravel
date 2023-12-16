@@ -79,15 +79,18 @@ class APIController extends Controller
         $save->similar_1 = $request->similar_1;
         $save->recommendation_date = $request->recommendation_date;
         
-
         $save->save();
 
         return "Berhasil Menyimpan Data GPU";
     }
     public function get_Gpu_recom(Request $request)
     {
-    $data = Gpu_recom::all();
-         return $data;
+    // $data = Gpu_recom::all();
+    //      return $data;
+    $users = DB::table('gpu_recommendation')
+            ->join('request_gpu', 'gpu_data.gpu_id', '=', 'request_gpu.gpu_id')
+            ->select('gpu_data.*', 'request_gpu.request_id')
+            ->get();
     }
 
     /**
@@ -320,6 +323,16 @@ class APIController extends Controller
             ->get();
          return $users;
     }
+    // public function index_request()
+    // {
+    //     //
+    //      $data = RequestGpu::all();
+    //      $users = DB::table('gpu_data')
+    //         ->join('request_gpu', 'gpu_data.gpu_id', '=', 'request_gpu.gpu_id')
+    //         ->select('gpu_data.*', 'request_gpu.request_id')
+    //         ->get();
+    //      return $users;
+    // }
 
     //     public function store_request(Request $request)
     // {
@@ -333,8 +346,13 @@ class APIController extends Controller
 
       public function get_request(Request $request)
     {
-        $data = RequestGpu::all()->where('request_id', $request->request_id)->first();
-        return $data;
+        $data = RequestGpu::all();
+         $users = DB::table('gpu_data')
+            ->join('request_gpu', 'gpu_data.gpu_id', '=', 'request_gpu.gpu_id')
+            ->select('gpu_data.*', 'request_gpu.request_id')
+            ->where('company_id','=',$request->company_id)
+            ->get();
+         return $users;
     }
 
     public function destroy_request(Request $request)
