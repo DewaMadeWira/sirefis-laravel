@@ -87,10 +87,24 @@ class APIController extends Controller
     {
     // $data = Gpu_recom::all();
     //      return $data;
-    $users = DB::table('gpu_recommendation')
-            ->join('request_gpu', 'gpu_data.gpu_id', '=', 'request_gpu.gpu_id')
-            ->select('gpu_data.*', 'request_gpu.request_id')
-            ->get();
+    $data = DB::table('gpu_recommendation')->first();
+            // return $data; 
+            // $bestGpu = $data->best_gpu;
+            // $similar= $data->similar_1;
+  
+
+    $bestGpu = Gpu::all()->where('gpu_id', $data->best_gpu)->first();
+    $similar = Gpu::all()->where('gpu_id',  $data->similar_1)->first();
+
+    // return $bestGpu;
+    $gpuArray = [
+       $bestGpu,
+        $similar,
+    ];
+
+    return $gpuArray;
+    
+            
     }
 
     /**
