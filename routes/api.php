@@ -36,6 +36,13 @@ Route::get('gpu', function(){
     return Gpu::all()->where('status', '=', "validated");
     // return "hello";
 });
+Route::get('top-gpu', function(){
+    // Data
+    $data= Gpu::select('gpu_id', 'gpu_name', 'G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company')->where('status', '=', "validated")->take(10)->get()->toArray();
+    $response = Http::post('http://127.0.0.1:5000/post-rank',["gpu_data"=>$data]);
+    return $response;
+    // return "hello";
+});
 // Route::get('gpu', function(){
 //     // Data
 //     return Gpu::all();
