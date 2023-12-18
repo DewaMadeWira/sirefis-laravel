@@ -129,7 +129,7 @@ class APIController extends Controller
 
      public function update(Request $request)
     {
-        $data = Gpu::all()->where('gpu_id', $request->id)->first();
+        $data = Gpu::all()->where('gpu_id', $request->gpu_id)->first();
         $data->gpu_name = $request->gpu_name;
         $data->G3Dmark = $request->G3Dmark;
         $data->G2Dmark = $request->G2Dmark;
