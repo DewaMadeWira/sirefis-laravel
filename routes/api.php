@@ -33,7 +33,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('gpu', function(){
     // Data
-    return Gpu::all()->where('status', '=', "validated");
+    // return Gpu::all()->where('status', '=', "validated");
+    // $data = Gpu::select('gpu_id', 'gpu_name', 'G3Dmark','G2Dmark','price','gpu_value','TDP','power_performance','test_date','category','company')
+    //         ->where('status', '=', "validated")
+    //         ->get()
+    //         ->toArray();
+    $data = Gpu::select('gpu_data.*')
+            ->where('status', '=', "validated")
+            ->get()
+            ->toArray();
+            return $data;
     // return "hello";
 });
 Route::get('top-gpu', function(){
@@ -258,7 +267,7 @@ Route::post("company", [APIController::class, "get_company"]);
 Route::get("company-employee", [APIController::class, "indexCompanyEmployee"]);
 
 // Update
-Route::post("update_data", [APIController::class, "update"]);
+Route::post("update_data_gpu", [APIController::class, "update"]);
 Route::post("update_data_gpu_recom", [APIController::class, "update_gpu_recom"]);
 Route::post("update_data_company", [APIController::class, "update_company"]);
 Route::post("update_data_company_employee", [APIController::class, "update_company_employee"]);
